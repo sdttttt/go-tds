@@ -1,0 +1,7 @@
+OUT_FILENAME=exe
+GOCMD=go
+
+run:
+	$(GOCMD) build -o $(OUT_FILENAME)
+	./$(OUT_FILENAME)
+	rm $(OUT_FILENAME) 
