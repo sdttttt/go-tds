@@ -1,22 +1,22 @@
 name: Go
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
 
 jobs:
-
   build:
-    name: Build
-    runs-on: ubuntu-latest
+    name: Buil
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+        go: [1.13, 1.14]
     steps:
 
-    - name: Set up Go 1.13
+    - name: Set up Go
       uses: actions/setup-go@v1
       with:
-        go-version: 1.13
+        go-version: ${{ matrix.go }}
       id: go
 
     - name: Check out code into the Go module directory
