@@ -1,11 +1,12 @@
 package main
 
 import (
-	"github.com/sdttttt/go-tds/msg"
+	"github.com/sdttttt/go-tds/client"
 	"github.com/sdttttt/go-tds/provider"
 )
 
 // Receiver is Rpc Service Entrance.
+// For Service Provider
 type Receiver struct {
 	hub *ServiceHub
 }
@@ -13,7 +14,7 @@ type Receiver struct {
 // JoinServiceHub is External registration service
 // info is Service Info
 // result is Whether the service registration is Successful.
-func (recv *Receiver) JoinServiceHub(info msg.ProviderInfo, result *bool) error {
+func (recv *Receiver) JoinServiceHub(info client.ProviderInfo, result *bool) error {
 
 	addr := &provider.Address{IP: info.Name, Port: info.Port}
 	service := &provider.Service{Address: addr}

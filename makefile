@@ -10,3 +10,6 @@ run:
 
 clean:
 	rm ./$(OUT_FILENAME)
+
+test:
+	$(GOCMD) test ./...
