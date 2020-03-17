@@ -1,4 +1,4 @@
-package client
+package configuration
 
 import (
 	"io/ioutil"
@@ -7,8 +7,8 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-// Config is Config
-type Config struct {
+// config is config
+type config struct {
 	Hub struct {
 		Address string
 		Port    string
@@ -21,11 +21,11 @@ type Config struct {
 }
 
 // IConfig is Config Single
-var IConfig Config
+var IConfig config
 var once sync.Once
 
 // GetConfig .
-func GetConfig() *Config {
+func GetConfig() *config {
 	once.Do(analysisConfigYaml)
 	return &IConfig
 }

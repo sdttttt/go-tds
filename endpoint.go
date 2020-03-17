@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/sdttttt/go-tds/client"
 	"github.com/sdttttt/go-tds/provider"
+	"github.com/sdttttt/go-tds/trpc"
 )
 
 // EndPoint is Get Service Infomation Entrance.
@@ -12,7 +12,7 @@ type EndPoint struct {
 }
 
 // GetService is get Service Info RPC service
-func (ep *EndPoint) GetService(info *client.CustomerInfo, service *provider.Service) error {
+func (ep *EndPoint) GetService(info *trpc.CustomerInfo, service *provider.Service) error {
 	serviceName := info.ServiceName
 	service = ep.hub.ServiceInfo(serviceName)
 	return nil
