@@ -1,6 +1,10 @@
 package client
 
-import "net/rpc"
+import (
+	"net/rpc"
+
+	"github.com/sdttttt/go-tds/configuration"
+)
 
 // ProviderInfo is RPC message format of Provider
 type ProviderInfo struct {
@@ -9,16 +13,11 @@ type ProviderInfo struct {
 	Port string
 }
 
-// CustomerInfo is RPC message format of Customer
-type CustomerInfo struct {
-	ServiceName string
-}
-
 // Register to Hub
 // TODO: Require TEST
 func Register(serviceName string) error {
-	config := GetConfig()
 
+	config := configuration.GetConfig()
 	client, err := rpc.DialHTTP("tcp", config.Hub.Address+":"+config.Hub.Port)
 
 	if err != nil {
@@ -32,7 +31,7 @@ func Register(serviceName string) error {
 	}
 
 	var reply bool
-	divCall := client.Go(JoinServiceHub, providerInfo, &reply, nil)
+	divCall := client.Go(configuration.JoinServiceHub, providerInfo, &reply, nil)
 	replyCall := <-divCall.Done
 
 	if replyCall.Error != nil {
