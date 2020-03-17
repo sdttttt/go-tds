@@ -1,4 +1,4 @@
-# Go-tds（Development stage）
+# Go-tds (Development stage)
 
 ![Go](https://github.com/sdttttt/go-tds/workflows/Go/badge.svg)
 [![codebeat badge](https://codebeat.co/badges/9040bc68-655c-4d3e-be12-661554bacecf)](https://codebeat.co/projects/github-com-sdttttt-go-tds-master)
