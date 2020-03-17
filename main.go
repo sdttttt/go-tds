@@ -10,14 +10,14 @@ import (
 func main() {
 	hub := Start()
 
-	rece := &Receiver{Hub: hub}
+	receiver := &Receiver{hub: hub}
 
-	rpc.Register(rece)
+	rpc.Register(receiver)
 	rpc.HandleHTTP()
 
 	listener, err := net.Listen("tcp", ":1234")
 	if err != nil {
-		log.Fatal("listener Faild")
+		log.Fatal("listener Failed")
 	}
 
 	http.Serve(listener, nil)
