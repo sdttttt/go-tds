@@ -10,15 +10,20 @@ import (
 func main() {
 	hub := Start()
 
-	rece := &Receiver{Hub: hub}
+	receiver := &Receiver{hub}
+	endpoint := &EndPoint{hub}
 
-	rpc.Register(rece)
+	rpc.Register(receiver)
+	rpc.Register(endpoint)
+
 	rpc.HandleHTTP()
 
 	listener, err := net.Listen("tcp", ":1234")
 	if err != nil {
-		log.Fatal("listener Faild")
+		log.Fatal("listener Failed")
 	}
+
+	println("Version: " + VERSION)
 
 	http.Serve(listener, nil)
 }

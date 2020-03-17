@@ -1,0 +1,7 @@
+hub:
+  address: localhost
+  port: 1234
+
+self:
+  address: localhost
+  port: 5555
