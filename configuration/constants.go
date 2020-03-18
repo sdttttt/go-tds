@@ -8,4 +8,6 @@ const (
 
 	GetService     = "EndPoint.GetService"
 	JoinServiceHub = "Receiver.JoinServiceHub"
+
+	DefaultConfigPath = "./tclient.yaml,../tclient.yaml"
 )

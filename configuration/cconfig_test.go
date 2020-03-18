@@ -2,14 +2,20 @@ package configuration
 
 import (
 	"testing"
+
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestConfigYaml(t *testing.T) {
-	config := GetConfig()
-	if config.Hub.Address == "" {
-		t.Error("oh! not")
-	}
-	if config.Hub.Port == "" {
-		t.Error("oh! not")
-	}
+
+	Convey("Test YAML Configuration is Effective", t, func() {
+		config := GetConfig()
+		So(config, ShouldNotBeNil)
+
+		Convey("Test YAML Configuration Attribute is Effective", func() {
+			So(config.Hub.Address, ShouldNotBeNil)
+			So(config.Hub.Port, ShouldNotBeNil)
+		})
+	})
+
 }
