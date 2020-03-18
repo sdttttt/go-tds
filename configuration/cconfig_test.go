@@ -18,4 +18,11 @@ func TestConfigYaml(t *testing.T) {
 		})
 	})
 
+	Convey("Test Read Default Path Config is Effective", t, func() {
+		data, err := readDefaultPathConfigfile()
+
+		So(data, ShouldNotBeNil)
+		So(err, ShouldBeNil)
+	})
+
 }

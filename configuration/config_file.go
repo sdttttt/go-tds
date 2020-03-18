@@ -9,13 +9,13 @@ import (
 )
 
 // IConfig is Config Single
-var IConfig config
+var IConfig Config
 var once sync.Once
 
 var configPath string = ""
 
-// config is config
-type config struct {
+// Config is Config
+type Config struct {
 	Hub struct {
 		Address string
 		Port    string
@@ -28,7 +28,7 @@ type config struct {
 }
 
 // GetConfig .
-func GetConfig() *config {
+func GetConfig() *Config {
 	once.Do(analysisConfigYaml)
 	return &IConfig
 }
