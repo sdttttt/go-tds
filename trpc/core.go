@@ -15,13 +15,13 @@ type CustomerInfo struct {
 // Call is RPC CALL of go-tds
 func Call(serviceName string, args interface{}, reply interface{}) error {
 
-	service, err := getServiceFromHub(serviceName)
+	address, err := getServiceAddressFromHub(serviceName)
 
 	if err != nil {
 		return err
 	}
 
-	client, err := connect(service)
+	client, err := connect(address)
 	if err != nil {
 		return err
 	}
@@ -33,30 +33,31 @@ func Call(serviceName string, args interface{}, reply interface{}) error {
 	return nil
 }
 
-func getServiceFromHub(serviceName string) (*provider.Service, error) {
+func getServiceAddressFromHub(serviceName string) (*provider.Address, error) {
 	config := configuration.GetConfig()
 
 	info := CustomerInfo{ServiceName: serviceName}
 
-	var service *provider.Service
+	var address *provider.Address
 
 	client, err := rpc.DialHTTP(configuration.TCP, config.Hub.Address+":"+config.Hub.Port)
 	if err != nil {
-		return service, err
+		return address, err
 	}
 
-	replyDone := client.Go(configuration.GetService, info, service, nil)
+	replyDone := client.Go(configuration.GetService, info, address, nil)
 	replyCall := <-replyDone.Done
 
 	if replyCall.Error != nil {
-		return service, replyCall.Error
+		return address, replyCall.Error
 	}
 
-	return service, nil
+	return address, nil
 }
 
-func connect(service *provider.Service) (*rpc.Client, error) {
-	client, err := rpc.DialHTTP(configuration.TCP, service.Address.IP+":"+service.Address.Port)
+// Create To RPC Client of Real service
+func connect(addr *provider.Address) (*rpc.Client, error) {
+	client, err := rpc.DialHTTP(configuration.TCP, addr.IP+":"+addr.Port)
 	if err != nil {
 		return client, err
 	}

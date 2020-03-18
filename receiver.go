@@ -17,9 +17,8 @@ type Receiver struct {
 func (recv *Receiver) JoinServiceHub(info client.ProviderInfo, result *bool) error {
 
 	addr := &provider.Address{IP: info.Name, Port: info.Port}
-	service := &provider.Service{Address: addr}
 
-	recv.hub.Join(info.Name, service)
+	recv.hub.Join(info.Name, addr)
 
 	*result = true
 	return nil
