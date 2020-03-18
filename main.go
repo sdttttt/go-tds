@@ -5,6 +5,8 @@ import (
 	"net"
 	"net/http"
 	"net/rpc"
+
+	"github.com/sdttttt/go-tds/configuration"
 )
 
 func main() {
@@ -13,7 +15,10 @@ func main() {
 	receiver := &Receiver{hub}
 	endpoint := &EndPoint{hub}
 
+	// RPC interface for service provider
 	rpc.Register(receiver)
+
+	// RPC interface for service customer
 	rpc.Register(endpoint)
 
 	rpc.HandleHTTP()
@@ -23,7 +28,9 @@ func main() {
 		log.Fatal("listener Failed")
 	}
 
-	println("Version: " + VERSION)
+	println("Version: " + configuration.Version)
 
-	http.Serve(listener, nil)
+	go http.Serve(listener, nil)
+
+	select {}
 }
