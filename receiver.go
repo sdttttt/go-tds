@@ -14,12 +14,12 @@ type Receiver struct {
 // JoinServiceHub is External registration service
 // info is Service Info
 // result is Whether the service registration is Successful.
-func (recv *Receiver) JoinServiceHub(info client.ProviderInfo, result *bool) error {
+func (recv *Receiver) JoinServiceHub(in client.ProviderInfo, out *bool) error {
 
-	addr := &provider.Address{IP: info.Name, Port: info.Port}
+	addr := &provider.Address{IP: in.Name, Port: in.Port}
 
-	recv.hub.Join(info.Name, addr)
+	recv.hub.Join(in.Name, addr)
 
-	*result = true
+	*out = true
 	return nil
 }
