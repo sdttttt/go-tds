@@ -1,7 +1,9 @@
 package main
 
 import (
-	"github.com/sdttttt/go-tds/client"
+	"context"
+
+	"github.com/sdttttt/go-tds/proto"
 	"github.com/sdttttt/go-tds/provider"
 )
 
@@ -14,12 +16,11 @@ type Receiver struct {
 // JoinServiceHub is External registration service
 // info is Service Info
 // result is Whether the service registration is Successful.
-func (recv *Receiver) JoinServiceHub(in client.ProviderInfo, out *bool) error {
+func (recv *Receiver) JoinServiceHub(ctx context.Context, info *proto.ProviderInfo) (*proto.JoinResult, error) {
 
-	addr := &provider.Address{IP: in.Name, Port: in.Port}
+	addr := &provider.Address{IP: info.Ip, Port: info.Port}
+	recv.hub.Join(info.ServiceName, addr)
 
-	recv.hub.Join(in.Name, addr)
-
-	*out = true
-	return nil
+	// Result: true is Successful.
+	return &proto.JoinResult{Result: true}, nil
 }

@@ -2,6 +2,7 @@ package configuration
 
 import (
 	"io/ioutil"
+	"log"
 	"strings"
 	"sync"
 
@@ -50,10 +51,12 @@ func analysisConfigYaml() {
 	}
 
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
+		return
 	}
 	if err = yaml.Unmarshal(data, &IConfig); err != nil {
-		panic(err)
+		log.Fatalln(err)
+		return
 	}
 }
 

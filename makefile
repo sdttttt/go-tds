@@ -21,7 +21,7 @@ clean:
 	rm ./$(OUT_FILENAME)
 
 test:
-	$(GOCMD) test -v ./...
+	$(GOCMD) test -v -cover ./...
 
 coverageforlinux:
 	set -e \

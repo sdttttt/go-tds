@@ -11,8 +11,8 @@ type ServiceHub struct {
 }
 
 // Join is Join to the service center
-func (hub *ServiceHub) Join(name string, service *provider.Address) {
-	hub.providers[name] = append(hub.providers[name], service)
+func (hub *ServiceHub) Join(serviceName string, service *provider.Address) {
+	hub.providers[serviceName] = append(hub.providers[serviceName], service)
 }
 
 // ServiceInfo is a Service Infomation.

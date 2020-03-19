@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package proto;
+
+service Receiver {
+    rpc JoinServiceHub(ProviderInfo) returns (JoinResult) {}
+}
+
+service EndPoint {
+    rpc GetServiceInfo(ProviderInfo) returns (ProviderInfo) {}
+}
+
+message ProviderInfo {
+    string serviceName = 1;
+    string ip = 2;
+    string port = 3;
+}
+
+message JoinResult {
+    bool result = 1;
+}
