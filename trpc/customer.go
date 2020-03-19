@@ -11,7 +11,7 @@ import (
 
 // Call of Trpc
 func Call(serviceName string, in interface{}, out interface{}) error {
-	info, err := getServiceAddr(serviceName)
+	info, err := GetServiceAddr(serviceName)
 
 	if err != nil {
 		return err
@@ -28,7 +28,8 @@ func Call(serviceName string, in interface{}, out interface{}) error {
 	return err
 }
 
-func getServiceAddr(serviceName string) (proto.ProviderInfo, error) {
+// GetServiceAddr is Get Service Addr from Hub.
+func GetServiceAddr(serviceName string) (proto.ProviderInfo, error) {
 	conn, err := connentToHub()
 	var info *proto.ProviderInfo
 
