@@ -45,5 +45,5 @@ func getServiceAddr(serviceName string) (proto.ProviderInfo, error) {
 }
 
 func buildConnection(info *proto.ProviderInfo) (*rpc.Client, error) {
-	return rpc.Dial(configuration.TCP, info.Ip+":"+info.Port)
+	return rpc.DialHTTP(configuration.TCP, info.Ip+":"+info.Port)
 }
