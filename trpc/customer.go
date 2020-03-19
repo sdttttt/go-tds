@@ -10,15 +10,20 @@ import (
 )
 
 // Call of Trpc
-func Call(servieName string, in interface{}, out interface{}) error {
-	info := getServiceAddr(serviceName)
-	client, err := buildConnection(info)
+func Call(serviceName string, in interface{}, out interface{}) error {
+	info, err := getServiceAddr(serviceName)
 
 	if err != nil {
 		return err
 	}
 
-	err = client.Call(servieName, in, out)
+	client, err := buildConnection(&info)
+
+	if err != nil {
+		return err
+	}
+
+	err = client.Call(serviceName, in, out)
 	defer client.Close()
 	return err
 }

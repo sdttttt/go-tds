@@ -23,6 +23,8 @@ func Register(serviceName string) error {
 		log.Fatalln(err)
 	}
 
+	client := proto.NewReceiverClient(conn)
+
 	result, err := client.JoinServiceHub(context.Background(), &providerInfo)
 	defer conn.Close()
 
