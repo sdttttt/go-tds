@@ -3,25 +3,19 @@ package main
 import (
 	"log"
 	"net"
-	"net/http"
-	"net/rpc"
 
 	"github.com/sdttttt/go-tds/configuration"
+	"github.com/sdttttt/go-tds/proto"
+	"google.golang.org/grpc"
 )
 
 func main() {
 	hub := Start()
 
-	receiver := &Receiver{hub}
-	endpoint := &EndPoint{hub}
+	server := grpc.NewServer()
 
-	// RPC interface for service provider
-	rpc.Register(receiver)
-
-	// RPC interface for service customer
-	rpc.Register(endpoint)
-
-	rpc.HandleHTTP()
+	proto.RegisterReceiverServer(server, &Receiver{hub})
+	proto.RegisterEndPointServer(server, &EndPoint{hub})
 
 	listener, err := net.Listen("tcp", ":1234")
 	if err != nil {
@@ -30,7 +24,5 @@ func main() {
 
 	println("Version: " + configuration.Version)
 
-	go http.Serve(listener, nil)
-
-	select {}
+	server.Serve(listener)
 }
