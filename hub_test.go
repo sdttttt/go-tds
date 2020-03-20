@@ -8,10 +8,8 @@ import (
 )
 
 func TestHub(t *testing.T) {
-
 	// Run Hub
 	go main()
-
 	serviceName := "API.HelloWorld"
 
 	Convey("Test Service Register to Hub", t, func() {
