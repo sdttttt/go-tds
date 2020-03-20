@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/sdttttt/go-tds/proto"
-	"github.com/sdttttt/go-tds/provider"
 )
 
 // Receiver is Rpc Service Entrance.
@@ -18,7 +17,7 @@ type Receiver struct {
 // result is Whether the service registration is Successful.
 func (recv *Receiver) JoinServiceHub(ctx context.Context, info *proto.ProviderInfo) (*proto.JoinResult, error) {
 
-	addr := &provider.Address{IP: info.Ip, Port: info.Port}
+	addr := &Address{IP: info.Ip, Port: info.Port}
 	recv.hub.Join(info.ServiceName, addr)
 
 	// Result: true is Successful.
