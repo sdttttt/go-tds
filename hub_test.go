@@ -14,32 +14,31 @@ func TestHub(t *testing.T) {
 
 	Convey("Test Error Get ServiceAddr", t, func() {
 		info, err := trpc.GetServiceAddr(serviceName)
-		ShouldBeNil(err)
-		ShouldBeBlank(info.Ip)
-		ShouldBeBlank(info.Port)
-		ShouldNotBeBlank(info.GetServiceName())
+		So(err, ShouldBeNil)
+		So(info.Ip, ShouldBeBlank)
+		So(info.Port, ShouldBeBlank)
+		So(info.ServiceName, ShouldNotBeBlank)
 	})
 
 	Convey("Test Error Call Service", t, func() {
 		err := trpc.Call(serviceName, nil, nil)
-		ShouldNotBeNil(err)
+		So(err, ShouldNotBeNil)
 	})
 
 	Convey("Test Service Register to Hub", t, func() {
 		err := trpc.Register(serviceName)
-		ShouldBeNil(err)
+		So(err, ShouldBeNil)
 	})
 
 	Convey("Test Get Service from Hub", t, func() {
 
 		for i := 0; i < 10; i++ {
 			info, err := trpc.GetServiceAddr(serviceName)
-			ShouldBeNil(err)
-			ShouldEqual(serviceName, info.ServiceName)
-			ShouldNotBeBlank(info.GetIp())
-			ShouldNotBeBlank(info.GetPort())
+			So(err, ShouldBeNil)
+			So(serviceName, ShouldEqual, info.ServiceName)
+			So(info.GetIp(), ShouldNotBeBlank)
+			So(info.GetPort(), ShouldNotBeBlank)
 		}
-
 	})
 
 	return
