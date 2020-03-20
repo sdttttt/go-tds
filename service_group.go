@@ -36,6 +36,6 @@ func (group *ServiceGroup) next() *Address {
 		group.index = 0
 	}
 
-	group.arithmetic(&group.useLen, &group.index)
-	return group.servicesAddr[group.index]
+	index := group.arithmetic(&group.useLen, &group.index)
+	return group.servicesAddr[index]
 }
