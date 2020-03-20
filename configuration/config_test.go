@@ -30,6 +30,7 @@ func TestConfigYaml(t *testing.T) {
 func TestChangeConfigYaml(t *testing.T) {
 
 	ChangeConfigFilePath("../tclient.yaml")
+	analysisConfigYaml()
 
 	Convey("Test YAML Configuration is Effective", t, func() {
 		config := GetConfig()
@@ -47,5 +48,4 @@ func TestChangeConfigYaml(t *testing.T) {
 		So(data, ShouldNotBeNil)
 		So(err, ShouldBeNil)
 	})
-
 }

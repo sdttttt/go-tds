@@ -1,22 +1,26 @@
 package main
 
-import "github.com/sdttttt/go-tds/provider"
-
 // Multiple addresses for one service
-type servicesAddress = [](*provider.Address)
+type servicesAddress = []*Address
 
 // ServiceHub .
 type ServiceHub struct {
 	providers map[string]servicesAddress
 }
 
+// Address is Service Addr
+type Address struct {
+	IP   string
+	Port string
+}
+
 // Join is Join to the service center
-func (hub *ServiceHub) Join(serviceName string, service *provider.Address) {
+func (hub *ServiceHub) Join(serviceName string, service *Address) {
 	hub.providers[serviceName] = append(hub.providers[serviceName], service)
 }
 
 // ServiceInfo is a Service Infomation.
-func (hub *ServiceHub) ServiceInfo(name string) *provider.Address {
+func (hub *ServiceHub) ServiceInfo(name string) *Address {
 	// TODO: constants
 	return hub.providers[name][0]
 }
