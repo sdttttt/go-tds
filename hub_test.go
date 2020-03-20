@@ -2,6 +2,7 @@ package main
 
 import (
 	"testing"
+	"time"
 
 	"github.com/sdttttt/go-tds/trpc"
 	. "github.com/smartystreets/goconvey/convey"
@@ -11,6 +12,8 @@ func TestHub(t *testing.T) {
 	// Run Hub
 	go main()
 	serviceName := "API.HelloWorld"
+
+	time.Sleep(time.Duration(2) * time.Second)
 
 	Convey("Test Error Get ServiceAddr", t, func() {
 		info, err := trpc.GetServiceAddr(serviceName)
