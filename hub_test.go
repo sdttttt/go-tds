@@ -8,10 +8,8 @@ import (
 )
 
 func TestHub(t *testing.T) {
-
 	// Run Hub
 	go main()
-
 	serviceName := "API.HelloWorld"
 
 	Convey("Test Service Register to Hub", t, func() {
@@ -20,11 +18,15 @@ func TestHub(t *testing.T) {
 	})
 
 	Convey("Test Get Service from Hub", t, func() {
-		info, err := trpc.GetServiceAddr(serviceName)
-		ShouldBeNil(err)
-		ShouldEqual(serviceName, info.ServiceName)
-		ShouldNotBeBlank(info.GetIp())
-		ShouldNotBeBlank(info.GetPort())
+
+		for i := 0; i < 10; i++ {
+			info, err := trpc.GetServiceAddr(serviceName)
+			ShouldBeNil(err)
+			ShouldEqual(serviceName, info.ServiceName)
+			ShouldNotBeBlank(info.GetIp())
+			ShouldNotBeBlank(info.GetPort())
+		}
+
 	})
 
 	return
