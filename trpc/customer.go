@@ -35,7 +35,7 @@ func Call(serviceName string, in interface{}, out interface{}) error {
 
 // GetServiceAddr is Get Service Addr from Hub.
 func GetServiceAddr(serviceName string) (proto.ProviderInfo, error) {
-	conn, err := connentToHub()
+	conn, err := connectToHub()
 	var info *proto.ProviderInfo
 
 	if err != nil {

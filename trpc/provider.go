@@ -18,7 +18,7 @@ func Register(serviceName string) error {
 		Port:        config.Self.Port,
 	}
 
-	conn, err := connentToHub()
+	conn, err := connectToHub()
 	if err != nil {
 		log.Fatalln(err)
 	}

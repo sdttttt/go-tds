@@ -50,3 +50,19 @@ func (group *ServiceGroup) next() *Address {
 	index := group.arithmetic(&group.useLen, &group.index)
 	return group.instances[index].toAddress()
 }
+
+// forEach is foreach all ServiceInstance.
+func (group *ServiceGroup) forEach(fn func(int, *ServiceInstance)) {
+	for index, instance := range group.instances {
+		fn(index, instance)
+	}
+}
+
+// serviceIsLive is reset ServiceInstance at the specified address
+func (group *ServiceGroup) serviceIsLive(addr *Address) {
+	group.forEach(func(index int, instance *ServiceInstance) {
+		if instance.ip == addr.IP && instance.port == addr.Port {
+			instance.resetSurvivalTime()
+		}
+	})
+}

@@ -13,6 +13,7 @@ func TestHub(t *testing.T) {
 	go main()
 	serviceName := "API.HelloWorld"
 
+	// Wait Main Running
 	time.Sleep(time.Duration(2) * time.Second)
 
 	Convey("Test Error Get ServiceAddr", t, func() {

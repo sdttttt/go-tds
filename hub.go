@@ -34,6 +34,11 @@ func (hub *ServiceHub) ServiceInfo(name string) *Address {
 	return nil
 }
 
+// isKeepLive is The service is Can be use.
+func (hub *ServiceHub) isKeepLive(serviceName string, addr *Address) {
+	hub.providers[serviceName].serviceIsLive(addr)
+}
+
 // Start is Get ServiceHub Instance.
 func Start() *ServiceHub {
 
