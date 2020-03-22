@@ -1,9 +1,9 @@
 hub:
     address: localhost
-    port: 1234
+    port: 77582
     checkSurvivalTime: 3
-  
+
 self:
     address: localhost
-    port: 5555
+    port: 12345
     survivalTime: 1
