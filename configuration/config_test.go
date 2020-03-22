@@ -13,8 +13,12 @@ func TestConfigYaml(t *testing.T) {
 		So(config, ShouldNotBeNil)
 
 		Convey("Test YAML Configuration Attribute is Effective", func() {
-			So(config.Hub.Address, ShouldNotBeNil)
-			So(config.Hub.Port, ShouldNotBeNil)
+			So(config.Hub.Address, ShouldNotBeBlank)
+			So(config.Hub.Port, ShouldNotBeBlank)
+			So(config.Hub.CheckSurvivalTime, ShouldNotBeZeroValue)
+			So(config.Self.Address, ShouldNotBeBlank)
+			So(config.Self.Port, ShouldNotBeBlank)
+			So(config.Self.SurvivalTime, ShouldNotBeZeroValue)
 		})
 	})
 
@@ -24,7 +28,6 @@ func TestConfigYaml(t *testing.T) {
 		So(data, ShouldNotBeNil)
 		So(err, ShouldBeNil)
 	})
-
 }
 
 func TestChangeConfigYaml(t *testing.T) {
@@ -37,8 +40,12 @@ func TestChangeConfigYaml(t *testing.T) {
 		So(config, ShouldNotBeNil)
 
 		Convey("Test YAML Configuration Attribute is Effective", func() {
-			So(config.Hub.Address, ShouldNotBeNil)
-			So(config.Hub.Port, ShouldNotBeNil)
+			So(config.Hub.Address, ShouldNotBeBlank)
+			So(config.Hub.Port, ShouldNotBeBlank)
+			So(config.Hub.CheckSurvivalTime, ShouldNotBeZeroValue)
+			So(config.Self.Address, ShouldNotBeBlank)
+			So(config.Self.Port, ShouldNotBeBlank)
+			So(config.Self.SurvivalTime, ShouldNotBeZeroValue)
 		})
 	})
 
@@ -48,4 +55,14 @@ func TestChangeConfigYaml(t *testing.T) {
 		So(data, ShouldNotBeNil)
 		So(err, ShouldBeNil)
 	})
+}
+
+func TestChangeConfigErrorYaml(t *testing.T) {
+	ChangeConfigFilePath("../go.mod")
+	analysisConfigYaml()
+}
+
+func TestErrorChangeConfigYaml(t *testing.T) {
+	ChangeConfigFilePath("..")
+	analysisConfigYaml()
 }

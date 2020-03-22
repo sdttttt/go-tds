@@ -19,7 +19,7 @@ func Call(serviceName string, in interface{}, out interface{}) error {
 	}
 
 	if info.Ip == "" || info.Port == "" {
-		errors.New("tPRC: Not Found Service Address")
+		return errors.New("tPRC: Not Found Service Address")
 	}
 
 	client, err := buildConnection(&info)

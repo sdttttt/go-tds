@@ -1,14 +1,17 @@
 package main
 
-import "github.com/robfig/cron/v3"
+import (
+	"github.com/sdttttt/go-tds/configuration"
+	"github.com/sdttttt/go-tds/utils"
+)
 
+// ServiceInstance is a basic service Information.
 type ServiceInstance struct {
 	ip   string
 	port string
 
 	group *ServiceGroup
-
-	timer *cron.Cron
+	timer *utils.Timer
 }
 
 // removeServiceInstance from ServiceGroup
@@ -20,7 +23,7 @@ func removeServiceInstance(group *ServiceGroup, instance *ServiceInstance) func(
 
 // NewServiceInstance is initializer a new ServiceInstance.
 func NewServiceInstance(group *ServiceGroup, ip string, port string) *ServiceInstance {
-	timer := cron.New()
+	timer := utils.NewTimer()
 	instance := &ServiceInstance{
 		ip,
 		port,
@@ -28,8 +31,10 @@ func NewServiceInstance(group *ServiceGroup, ip string, port string) *ServiceIns
 		timer,
 	}
 
-	// TODO: CONSTANTS
-	instance.timer.AddFunc("0 2 * * * * *", destroy(instance))
+	config := configuration.GetConfig()
+
+	// Automatic deletion of service timeout.
+	instance.timer.AddJob(config.Hub.CheckSurvivalTime, destroy(instance))
 	instance.timer.Start()
 
 	return instance
@@ -46,22 +51,16 @@ func (instance *ServiceInstance) toAddress() *Address {
 // resetSurvivalTime is Reset Survival time of ServiceInstance
 func (instance *ServiceInstance) resetSurvivalTime() {
 	instance.timer.Stop()
-	instance.timer = cron.New()
-	instance.timer.AddFunc("0 2 * * * * *", destroy(instance))
+	instance.timer = utils.NewTimer()
+	config := configuration.GetConfig()
+	instance.timer.AddJob(config.Hub.CheckSurvivalTime, destroy(instance))
 	instance.timer.Start()
 }
 
 // destroy return func() is Remove ServiceInstance from ServiceGroup.
 func destroy(instance *ServiceInstance) func() {
-
 	group := instance.group
-
 	return func() {
-		for index, currentInstance := range group.instances {
-			if instance == currentInstance {
-				group.instances =
-					append(group.instances[:index], group.instances[index+1:]...)
-			}
-		}
+		group.remove(instance)
 	}
 }

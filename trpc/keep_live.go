@@ -2,9 +2,11 @@ package trpc
 
 import (
 	"context"
-	"github.com/robfig/cron/v3"
-	"github.com/sdttttt/go-tds/proto"
 	"log"
+
+	"github.com/sdttttt/go-tds/configuration"
+	"github.com/sdttttt/go-tds/proto"
+	"github.com/sdttttt/go-tds/utils"
 )
 
 func keepConnectReport(info *proto.ProviderInfo) {
@@ -16,15 +18,14 @@ func keepConnectReport(info *proto.ProviderInfo) {
 	}
 
 	client := proto.NewReceiverClient(conn)
+	timer := utils.NewTimer()
+	config := configuration.GetConfig()
 
-	timer := cron.New()
-
-	// TODO: CONSTANTS
-	timer.AddFunc("45 * * * * * *", ReportLive(client, info))
+	timer.AddJob(config.Self.SurvivalTime, reportLive(client, info))
 	timer.Run()
 }
 
-func ReportLive(client proto.ReceiverClient, info *proto.ProviderInfo) func() {
+func reportLive(client proto.ReceiverClient, info *proto.ProviderInfo) func() {
 	return func() {
 		client.ReportActive(context.Background(), info)
 	}

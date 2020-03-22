@@ -5,30 +5,36 @@ import (
 	"log"
 	"strings"
 	"sync"
+	"time"
 
 	"gopkg.in/yaml.v2"
 )
 
 // IConfig is Config Single
 var IConfig Config
+
+// Single Instance.
 var once sync.Once
 
+// Custom definition Config file path.
 var configPath string = ""
 
 // Config is Config
 type Config struct {
 	Hub struct {
-		Address string
-		Port    string
+		Address           string
+		Port              string
+		CheckSurvivalTime time.Duration `yaml:"checkSurvivalTime"`
 	}
 
 	Self struct {
-		Address string
-		Port    string
+		Address      string
+		Port         string
+		SurvivalTime time.Duration `yaml:"survivalTime"`
 	}
 }
 
-// GetConfig .
+// GetConfig is to Read config.
 func GetConfig() *Config {
 	once.Do(analysisConfigYaml)
 	return &IConfig
@@ -39,6 +45,7 @@ func ChangeConfigFilePath(path string) {
 	configPath = path
 }
 
+// analysisConfigYaml is yaml file to Golang Struct.
 func analysisConfigYaml() {
 
 	var data []byte
@@ -51,15 +58,16 @@ func analysisConfigYaml() {
 	}
 
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err.Error())
 		return
 	}
 	if err = yaml.Unmarshal(data, &IConfig); err != nil {
-		log.Fatalln(err)
+		log.Println(err.Error())
 		return
 	}
 }
 
+// readDefaultPathConfigfile is read default file path.
 func readDefaultPathConfigfile() ([]byte, error) {
 
 	var data []byte

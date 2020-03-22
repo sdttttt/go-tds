@@ -32,5 +32,7 @@ func Register(serviceName string) error {
 		return nil
 	}
 
+	go keepConnectReport(&providerInfo)
+
 	return err
 }

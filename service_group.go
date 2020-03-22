@@ -30,20 +30,23 @@ func (group *ServiceGroup) add(addr *Address) {
 }
 
 func (group *ServiceGroup) remove(in *ServiceInstance) {
-	for index, currentInstance := range group.instances {
-		if currentInstance == in {
+	fn := func(index int, instance *ServiceInstance) {
+		if instance == in {
 			group.instances = append(group.instances[:index], group.instances[index+1:]...)
 		}
 	}
+	group.useLen--
+
+	group.forEach(fn)
 }
 
 // next is get next same Service.
 func (group *ServiceGroup) next() *Address {
-	if group.useLen == 0 {
+	if group.useLen <= 0 {
 		return nil
 	}
 
-	if group.index == group.useLen {
+	if group.index >= group.useLen {
 		group.index = 0
 	}
 
