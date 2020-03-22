@@ -12,7 +12,17 @@ type Address struct {
 }
 
 func (hub *ServiceHub) hasService(name string) bool {
-	return hub.providers[name] != nil
+	if hub.providers[name] == nil {
+		return false
+	} else {
+		hub.providers[name].r.RLock()
+		if hub.providers[name].useLen <= 0 {
+			return false
+		}
+		hub.providers[name].r.RUnlock()
+	}
+
+	return true
 }
 
 // Join is Join to the service center
@@ -34,11 +44,15 @@ func (hub *ServiceHub) ServiceInfo(name string) *Address {
 	return nil
 }
 
+// isKeepLive is The service is Can be use.
+func (hub *ServiceHub) isKeepLive(serviceName string, addr *Address) {
+	hub.providers[serviceName].serviceIsLive(addr)
+}
+
 // Start is Get ServiceHub Instance.
 func Start() *ServiceHub {
-
 	return &ServiceHub{
 		// TODO: constants
-		make(map[string]*ServiceGroup, 24),
+		make(map[string]*ServiceGroup, 0),
 	}
 }

@@ -1,10 +1,10 @@
-name: Go
+name: Golang CI
 
 on: [push]
 
 jobs:
   build:
-    name: Buil
+    name: Build
 
     runs-on: ${{ matrix.os }}
     strategy:
@@ -24,6 +24,9 @@ jobs:
 
     - name: Get dependencies
       run: make depend
+
+    - name: Test
+      run: make test
 
     - name: Build
       run: make build

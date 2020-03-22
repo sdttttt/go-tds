@@ -18,7 +18,7 @@ func Register(serviceName string) error {
 		Port:        config.Self.Port,
 	}
 
-	conn, err := connentToHub()
+	conn, err := connectToHub()
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -31,6 +31,8 @@ func Register(serviceName string) error {
 	if result.Result {
 		return nil
 	}
+
+	go keepConnectReport(&providerInfo)
 
 	return err
 }

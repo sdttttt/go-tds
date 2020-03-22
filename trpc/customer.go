@@ -2,6 +2,7 @@ package trpc
 
 import (
 	"context"
+	"errors"
 	"log"
 	"net/rpc"
 
@@ -17,6 +18,10 @@ func Call(serviceName string, in interface{}, out interface{}) error {
 		return err
 	}
 
+	if info.Ip == "" || info.Port == "" {
+		return errors.New("tPRC: Not Found Service Address")
+	}
+
 	client, err := buildConnection(&info)
 
 	if err != nil {
@@ -30,7 +35,7 @@ func Call(serviceName string, in interface{}, out interface{}) error {
 
 // GetServiceAddr is Get Service Addr from Hub.
 func GetServiceAddr(serviceName string) (proto.ProviderInfo, error) {
-	conn, err := connentToHub()
+	conn, err := connectToHub()
 	var info *proto.ProviderInfo
 
 	if err != nil {

@@ -17,7 +17,9 @@ func main() {
 	proto.RegisterReceiverServer(server, &Receiver{hub})
 	proto.RegisterEndPointServer(server, &EndPoint{hub})
 
-	listener, err := net.Listen("tcp", ":1234")
+	config := configuration.GetConfig()
+
+	listener, err := net.Listen("tcp", ":"+config.Hub.Port)
 	if err != nil {
 		log.Fatal("listener Failed")
 	}

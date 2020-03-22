@@ -17,8 +17,13 @@ func (ep *EndPoint) GetServiceInfo(ctx context.Context, in *proto.ProviderInfo) 
 	serviceName := in.ServiceName
 	addr := ep.hub.ServiceInfo(serviceName)
 
-	in.Ip = addr.IP
-	in.Port = addr.Port
+	if addr == nil {
+		in.Ip = ""
+		in.Port = ""
+	} else {
+		in.Ip = addr.IP
+		in.Port = addr.Port
+	}
 
 	return in, nil
 }
