@@ -1,6 +1,9 @@
 package utils
 
-import "time"
+import (
+	"sync"
+	"time"
+)
 
 // Task is a job.
 type Task = func()
@@ -11,6 +14,8 @@ type Tasks = []func()
 // Timer is a Implement of Timer
 type Timer struct {
 	jobs map[time.Duration]Tasks
+
+	r sync.RWMutex
 
 	stopFlag bool
 }
@@ -46,7 +51,9 @@ func (t *Timer) AddJobs(seconds time.Duration, jobs ...Task) {
 
 // Start is Run All Jobs in goroutine.
 func (t *Timer) Start() {
+	t.r.Lock()
 	t.stopFlag = false
+	t.r.Unlock()
 	t.forEach(func(time time.Duration, ts Tasks) {
 		go t.oneStart(time, ts)
 	})
@@ -54,7 +61,9 @@ func (t *Timer) Start() {
 
 // Run All Jobs.
 func (t *Timer) Run() {
+	t.r.Lock()
 	t.stopFlag = false
+	t.r.Unlock()
 	t.forEach(func(time time.Duration, ts Tasks) {
 		go t.oneStart(time, ts)
 	})
@@ -64,7 +73,9 @@ func (t *Timer) Run() {
 
 // Stop All Job in Timer
 func (t *Timer) Stop() {
+	t.r.Lock()
 	t.stopFlag = true
+	defer t.r.Unlock()
 }
 
 // forEach is foreach all Jobs.
@@ -83,9 +94,15 @@ func (t *Timer) oneStart(seconds time.Duration, ts Tasks) {
 		for _, t := range ts {
 			t()
 		}
+
+		// Lock
+		t.r.RLock()
 		if t.stopFlag {
+			t.r.RUnlock()
 			break
 		}
+		t.r.RUnlock()
+
 		timer.Reset(time.Second * seconds)
 	}
 

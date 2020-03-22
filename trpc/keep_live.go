@@ -9,6 +9,7 @@ import (
 	"github.com/sdttttt/go-tds/utils"
 )
 
+// TODO: Require TEST.
 func keepConnectReport(info *proto.ProviderInfo) {
 	conn, err := connectToHub()
 

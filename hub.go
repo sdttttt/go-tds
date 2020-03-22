@@ -14,9 +14,12 @@ type Address struct {
 func (hub *ServiceHub) hasService(name string) bool {
 	if hub.providers[name] == nil {
 		return false
-	}
-	if hub.providers[name].useLen <= 0 {
-		return false
+	} else {
+		hub.providers[name].r.RLock()
+		if hub.providers[name].useLen <= 0 {
+			return false
+		}
+		hub.providers[name].r.RUnlock()
 	}
 
 	return true

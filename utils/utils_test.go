@@ -44,28 +44,28 @@ func TestTimerStop(t *testing.T) {
 	Convey("Test Run Job", t, func() {
 		timer := NewTimer()
 		timer.AddJob(1, func() {
-			print(" ")
+			print("1")
 		})
 		timer.Start()
-		// time.Sleep(2 * time.Second)
+		time.Sleep(1 * time.Second)
 		timer.Stop()
-		// time.Sleep(2 * time.Second)
+		time.Sleep(1 * time.Second)
 		timer.Start()
-		//time.Sleep(2 * time.Second)
+		time.Sleep(1 * time.Second)
 	})
 
 	Convey("Test Run Jobs", t, func() {
 		timer := NewTimer()
 		timer.AddJobs(1, func() {
-			print(" ")
+			print("1")
 		}, func() {
-			print(" ")
+			print("2")
 		})
 		timer.Start()
-		time.Sleep(2 * time.Second)
+		time.Sleep(1 * time.Second)
 		timer.Stop()
-		time.Sleep(2 * time.Second)
+		time.Sleep(1 * time.Second)
 		timer.Start()
-		// time.Sleep(2 * time.Second)
+		time.Sleep(1 * time.Second)
 	})
 }
