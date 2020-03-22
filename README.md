@@ -3,7 +3,7 @@
 ![Go](https://github.com/sdttttt/go-tds/workflows/Go/badge.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/sdttttt/go-tds)](https://goreportcard.com/report/github.com/sdttttt/go-tds)
 [![codebeat badge](https://codebeat.co/badges/9040bc68-655c-4d3e-be12-661554bacecf)](https://codebeat.co/projects/github-com-sdttttt-go-tds-master)
-[![codecov](https://codecov.io/gh/sdttttt/go-tds/branch/master/graph/badge.svg)](https://codecov.io/gh/sdttttt/go-tds)
+[![codecov](https://codecov.io/gh/sdttttt/go-tds/branch/master/graph/badge.svg)](https://codecov.io/gh/sdttttt/go-tds) [![Join the chat at https://gitter.im/go-tds/community](https://badges.gitter.im/go-tds/community.svg)](https://gitter.im/go-tds/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 一个基于RPC的轻量级分布式微服务框架(库).
 以及服务注册中心.
@@ -24,7 +24,7 @@
 ## Architecture
 
 它的架构和`Dubbo`类似,简单易用，首先有3个名词你需要知道，
-如果你学习过微服务，那就更简单了！
+如果你学习过一些别的微服务框架（比如Spring Cloud Netflix），那就更简单了！
 
 **Hub** 
 
