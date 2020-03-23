@@ -14,13 +14,6 @@ type ServiceInstance struct {
 	timer *utils.Timer
 }
 
-// removeServiceInstance from ServiceGroup
-func removeServiceInstance(group *ServiceGroup, instance *ServiceInstance) func() {
-	return func() {
-		group.remove(instance)
-	}
-}
-
 // NewServiceInstance is initializer a new ServiceInstance.
 func NewServiceInstance(group *ServiceGroup, ip string, port string) *ServiceInstance {
 	timer := utils.NewTimer()
@@ -51,9 +44,6 @@ func (instance *ServiceInstance) toAddress() *Address {
 // resetSurvivalTime is Reset Survival time of ServiceInstance
 func (instance *ServiceInstance) resetSurvivalTime() {
 	instance.timer.Stop()
-	instance.timer = utils.NewTimer()
-	config := configuration.GetConfig()
-	instance.timer.AddJob(config.Hub.CheckSurvivalTime, destroy(instance))
 	instance.timer.Start()
 }
 

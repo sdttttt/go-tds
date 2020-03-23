@@ -1,0 +1,9 @@
+hub:
+    address: localhost
+    port: 55558
+    checkSurvivalTime: 1
+
+self:
+    address: localhost
+    port: 10088
+    survivalTime: 10

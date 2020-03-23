@@ -1,4 +1,4 @@
-.PHONY: depend, build, run, clean, test, coverageforlinux
+.PHONY: depend, build, run, clean, test, report
 
 OUT_FILENAME=exe
 GOCMD=go
@@ -22,3 +22,6 @@ clean:
 
 test:
 	$(GOCMD) test -race -v -cover ./...
+
+report:
+	$(GOCMD) tool cover -html=./coverage/coverage.cov -o ./coverage/report.html
