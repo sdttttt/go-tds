@@ -17,14 +17,14 @@ type Timer struct {
 
 	r sync.RWMutex
 
-	stopFlag bool
+	stopFlag chan struct{}
 }
 
 // NewTimer is return a Timer Instance.
 func NewTimer() *Timer {
 	return &Timer{
 		jobs:     make(map[time.Duration]Tasks),
-		stopFlag: false,
+		stopFlag: make(chan struct{}),
 	}
 }
 
@@ -51,9 +51,6 @@ func (t *Timer) AddJobs(seconds time.Duration, jobs ...Task) {
 
 // Start is Run All Jobs in goroutine.
 func (t *Timer) Start() {
-	t.r.Lock()
-	t.stopFlag = false
-	t.r.Unlock()
 	t.forEach(func(time time.Duration, ts Tasks) {
 		go t.oneStart(time, ts)
 	})
@@ -61,9 +58,6 @@ func (t *Timer) Start() {
 
 // Run All Jobs.
 func (t *Timer) Run() {
-	t.r.Lock()
-	t.stopFlag = false
-	t.r.Unlock()
 	t.forEach(func(time time.Duration, ts Tasks) {
 		go t.oneStart(time, ts)
 	})
@@ -73,9 +67,7 @@ func (t *Timer) Run() {
 
 // Stop All Job in Timer
 func (t *Timer) Stop() {
-	t.r.Lock()
-	t.stopFlag = true
-	defer t.r.Unlock()
+	t.stopFlag <- struct{}{}
 }
 
 // forEach is foreach all Jobs.
@@ -87,24 +79,19 @@ func (t *Timer) forEach(fn func(seconds time.Duration, ts Tasks)) {
 
 // oneStart is Start a Job.
 func (t *Timer) oneStart(seconds time.Duration, ts Tasks) {
-	timer := time.NewTimer(time.Second * seconds)
+	timer := time.NewTicker(time.Second * seconds)
+	defer timer.Stop()
 
 	for {
-		<-timer.C
-		for _, t := range ts {
-			t()
-		}
+		select {
+		case <-timer.C:
+			for _, task := range ts {
+				task()
+			}
 
-		// Lock
-		t.r.RLock()
-		if t.stopFlag {
-			t.r.RUnlock()
-			break
+		case <-t.stopFlag:
+			return
 		}
-		t.r.RUnlock()
-
-		timer.Reset(time.Second * seconds)
 	}
 
-	defer timer.Stop()
 }

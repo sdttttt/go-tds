@@ -29,10 +29,9 @@ func Register(serviceName string) error {
 	defer conn.Close()
 
 	if result.Result {
+		go keepConnectReport(&providerInfo)
 		return nil
 	}
-
-	go keepConnectReport(&providerInfo)
 
 	return err
 }

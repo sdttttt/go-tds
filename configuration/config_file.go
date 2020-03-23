@@ -40,6 +40,13 @@ func GetConfig() *Config {
 	return &IConfig
 }
 
+// Refresh description: Configuration is a singleton.
+// If you need to change the configuration file path in the middle
+// please use `Review` after using `ChangeConfigFilePath`.
+func Refresh() {
+	analysisConfigYaml()
+}
+
 // ChangeConfigFilePath is Change Configuration File Path
 func ChangeConfigFilePath(path string) {
 	configPath = path

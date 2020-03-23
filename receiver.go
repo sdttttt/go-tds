@@ -32,6 +32,7 @@ func (recv *Receiver) ReportActive(ctx context.Context, info *proto.ProviderInfo
 	return &proto.ReportResult{Result: true}, nil
 }
 
+// toAddress is to Address Type from ProviderInfo Type.
 func (recv *Receiver) toAddress(info *proto.ProviderInfo) *Address {
 	return &Address{IP: info.Ip, Port: info.Port}
 }
