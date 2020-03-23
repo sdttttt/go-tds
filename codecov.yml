@@ -1,6 +1,9 @@
 coverage:
   range: "0...50"
   status:
+    patch:
+      default:
+        target: 66%
     project:
       default:
         target: 70%
@@ -8,5 +11,5 @@ coverage:
   notify:
     gitter:
       default:
-        url: "https://webhooks.gitter.im/e/fdd6652a3672684257da"
-        threshold: 30%
+        url: "https://webhooks.gitter.im/e/d7580de27621b87e99da"
+        threshold: 1%
