@@ -2,6 +2,7 @@ hub:
   address: localhost
   port: 1234
   checkSurvivalTime: 120
+  loadBalance: RoundRobin
 
 self:
   address: localhost

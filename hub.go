@@ -3,6 +3,8 @@ package main
 // ServiceHub .
 type ServiceHub struct {
 	providers map[string]*ServiceGroup
+
+	loadBalanceStrategy Balance
 }
 
 // Address is Service Addr
@@ -29,7 +31,7 @@ func (hub *ServiceHub) hasService(name string) bool {
 func (hub *ServiceHub) Join(serviceName string, service *Address) {
 	if !hub.hasService(serviceName) {
 		hub.providers[serviceName] =
-			NewServiceGroup(0, RoundRobin())
+			NewServiceGroup(0, hub.loadBalanceStrategy)
 	}
 
 	hub.providers[serviceName].add(service)
@@ -50,9 +52,10 @@ func (hub *ServiceHub) isKeepLive(serviceName string, addr *Address) {
 }
 
 // Start is Get ServiceHub Instance.
-func Start() *ServiceHub {
+func Start(opt *Options) *ServiceHub {
 	return &ServiceHub{
 		// TODO: constants
-		make(map[string]*ServiceGroup, 0),
+		providers:           make(map[string]*ServiceGroup, 0),
+		loadBalanceStrategy: opt.balance,
 	}
 }

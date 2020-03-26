@@ -25,6 +25,7 @@ type Config struct {
 		Address           string
 		Port              string
 		CheckSurvivalTime time.Duration `yaml:"checkSurvivalTime"`
+		LoadBalance       string        `yaml:"loadBalance"`
 	}
 
 	Self struct {

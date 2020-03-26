@@ -12,13 +12,17 @@ func TestConfigYaml(t *testing.T) {
 		config := GetConfig()
 		So(config, ShouldNotBeNil)
 
+		hub := config.Hub
+		self := config.Self
+
 		Convey("Test YAML Configuration Attribute is Effective", func() {
-			So(config.Hub.Address, ShouldNotBeBlank)
-			So(config.Hub.Port, ShouldNotBeBlank)
-			So(config.Hub.CheckSurvivalTime, ShouldNotBeZeroValue)
-			So(config.Self.Address, ShouldNotBeBlank)
-			So(config.Self.Port, ShouldNotBeBlank)
-			So(config.Self.SurvivalTime, ShouldNotBeZeroValue)
+			So(hub.Address, ShouldNotBeBlank)
+			So(hub.Port, ShouldNotBeBlank)
+			So(hub.CheckSurvivalTime, ShouldNotBeZeroValue)
+			So(hub.LoadBalance, ShouldNotBeBlank)
+			So(self.Address, ShouldNotBeBlank)
+			So(self.Port, ShouldNotBeBlank)
+			So(self.SurvivalTime, ShouldNotBeZeroValue)
 		})
 	})
 
@@ -33,19 +37,23 @@ func TestConfigYaml(t *testing.T) {
 func TestChangeConfigYaml(t *testing.T) {
 
 	ChangeConfigFilePath("../tclient.yaml")
-	analysisConfigYaml()
+	Refresh()
 
 	Convey("Test YAML Configuration is Effective", t, func() {
 		config := GetConfig()
 		So(config, ShouldNotBeNil)
 
+		hub := config.Hub
+		self := config.Self
+
 		Convey("Test YAML Configuration Attribute is Effective", func() {
-			So(config.Hub.Address, ShouldNotBeBlank)
-			So(config.Hub.Port, ShouldNotBeBlank)
-			So(config.Hub.CheckSurvivalTime, ShouldNotBeZeroValue)
-			So(config.Self.Address, ShouldNotBeBlank)
-			So(config.Self.Port, ShouldNotBeBlank)
-			So(config.Self.SurvivalTime, ShouldNotBeZeroValue)
+			So(hub.Address, ShouldNotBeBlank)
+			So(hub.Port, ShouldNotBeBlank)
+			So(hub.CheckSurvivalTime, ShouldNotBeZeroValue)
+			So(hub.LoadBalance, ShouldNotBeBlank)
+			So(self.Address, ShouldNotBeBlank)
+			So(self.Port, ShouldNotBeBlank)
+			So(self.SurvivalTime, ShouldNotBeZeroValue)
 		})
 	})
 
@@ -59,10 +67,10 @@ func TestChangeConfigYaml(t *testing.T) {
 
 func TestChangeConfigErrorYaml(t *testing.T) {
 	ChangeConfigFilePath("../go.mod")
-	analysisConfigYaml()
+	Refresh()
 }
 
 func TestErrorChangeConfigYaml(t *testing.T) {
 	ChangeConfigFilePath("..")
-	analysisConfigYaml()
+	Refresh()
 }

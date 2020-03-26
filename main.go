@@ -9,15 +9,29 @@ import (
 	"google.golang.org/grpc"
 )
 
+// Options is Hub Config Options.
+type Options struct {
+	balance Balance
+}
+
+// NewOptions return new Option instance.
+func NewOptions(conf *configuration.Config) *Options {
+	return &Options{
+		balance: balanceFunc(conf.Hub.LoadBalance),
+	}
+}
+
 func main() {
-	hub := Start()
+	config := configuration.GetConfig()
+
+	options := NewOptions(config)
+
+	hub := Start(options)
 
 	server := grpc.NewServer()
 
 	proto.RegisterReceiverServer(server, &Receiver{hub})
 	proto.RegisterEndPointServer(server, &EndPoint{hub})
-
-	config := configuration.GetConfig()
 
 	listener, err := net.Listen("tcp", ":"+config.Hub.Port)
 	if err != nil {
