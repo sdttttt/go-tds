@@ -1,4 +1,4 @@
-package main
+package tds
 
 import (
 	"log"
@@ -21,7 +21,8 @@ func NewOptions(conf *configuration.Config) *Options {
 	}
 }
 
-func main() {
+// Main is The entrance to the entire application.
+func Main() {
 	config := configuration.GetConfig()
 
 	options := NewOptions(config)

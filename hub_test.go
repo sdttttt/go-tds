@@ -1,4 +1,4 @@
-package main
+package tds
 
 import (
 	"testing"
@@ -14,7 +14,7 @@ func TestHub(t *testing.T) {
 	configuration.ChangeConfigFilePath("./tclient-test.yaml")
 
 	// Run Hub
-	go main()
+	go Main()
 	serviceName := "API.HelloWorld"
 
 	// Wait Main Running
@@ -70,7 +70,7 @@ func TestHubTimeoutService(t *testing.T) {
 	configuration.Refresh()
 
 	// Run Hub
-	go main()
+	go Main()
 	serviceName := "API.HelloWorld"
 
 	// Wait Main Running

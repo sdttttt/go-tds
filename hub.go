@@ -1,4 +1,4 @@
-package main
+package tds
 
 // ServiceHub .
 type ServiceHub struct {

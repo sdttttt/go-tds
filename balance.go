@@ -1,4 +1,4 @@
-package main
+package tds
 
 // Balance is Load Balancing implement.
 // len is Service Count

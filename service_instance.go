@@ -1,4 +1,4 @@
-package main
+package tds
 
 import (
 	"github.com/sdttttt/go-tds/configuration"
