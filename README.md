@@ -5,13 +5,13 @@
 [![codebeat badge](https://codebeat.co/badges/9040bc68-655c-4d3e-be12-661554bacecf)](https://codebeat.co/projects/github-com-sdttttt-go-tds-master)
 [![codecov](https://codecov.io/gh/sdttttt/go-tds/branch/master/graph/badge.svg)](https://codecov.io/gh/sdttttt/go-tds) [![Join the chat at https://gitter.im/go-tds/community](https://badges.gitter.im/go-tds/community.svg)](https://gitter.im/go-tds/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-# 考虑重新设计
-
 一个基于RPC的轻量级分布式微服务库, 服务注册中心.
 使用Go编写.
 
 它是简单的, 用户可以专注于开发服务,不需要关心其他事情.
 只需要少量的配置,它就能很快开始工作.
+
+和市面上常见的微服务体系不一样，它的服务中心和为微服务框架是耦合的，这固然降低了学习成本，但是也不利于扩展.
 
 # Example
 
