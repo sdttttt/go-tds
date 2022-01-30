@@ -5,11 +5,8 @@
 [![codebeat badge](https://codebeat.co/badges/9040bc68-655c-4d3e-be12-661554bacecf)](https://codebeat.co/projects/github-com-sdttttt-go-tds-master)
 [![codecov](https://codecov.io/gh/sdttttt/go-tds/branch/master/graph/badge.svg)](https://codecov.io/gh/sdttttt/go-tds) [![Join the chat at https://gitter.im/go-tds/community](https://badges.gitter.im/go-tds/community.svg)](https://gitter.im/go-tds/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-一个基于RPC的轻量级分布式微服务库, 服务注册中心.
+一个基于RPC的最小微服务库, 包含服务注册中心.
 使用Go编写. 总代码不超过2000行. 它只实现了微服务最核心的功能。
-
-它是简单的, 用户可以专注于开发服务,不需要关心其他事情.
-只需要少量的配置,它就能很快开始工作.
 
 # Example
 
@@ -147,13 +144,3 @@ localhost : 4321
 API.Hello (0x88c720,0xc000136030) (0x8770e0,0xc000136008)
 1
 ```
-
-## Future
-
-未来要做的事情
-
-- [x] 注册服务
-- [x] 服务消费
-- [x] 负载均衡
-- [x] 服务治理
-- [ ] 多中心化
