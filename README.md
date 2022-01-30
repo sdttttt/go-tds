@@ -1,4 +1,4 @@
-# Go-tds (Development stage)
+# Go-tds
 
 ![Go](https://github.com/sdttttt/go-tds/workflows/Go/badge.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/sdttttt/go-tds)](https://goreportcard.com/report/github.com/sdttttt/go-tds)
