@@ -5,28 +5,26 @@
 [![codebeat badge](https://codebeat.co/badges/9040bc68-655c-4d3e-be12-661554bacecf)](https://codebeat.co/projects/github-com-sdttttt-go-tds-master)
 [![codecov](https://codecov.io/gh/sdttttt/go-tds/branch/master/graph/badge.svg)](https://codecov.io/gh/sdttttt/go-tds) [![Join the chat at https://gitter.im/go-tds/community](https://badges.gitter.im/go-tds/community.svg)](https://gitter.im/go-tds/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-一个微服务验证框架，使用go编写. 实现最简单的服务注册，调度，调用等功能。
+一个微服务验证框架，使用go编写. 
+实现最简单的服务注册，调度，调用等功能。
 
 # Example
 
-> **Warning: 目前还处于开发阶段.不适用于生产环境.**
 
-### Start Hub
+### Hub
 
-首先您需要在启动hub.请`clone`本仓库的代码.
+
 
 ```shell
 git clone https://github.com/sdttttt/go-tds.git
 ```
 
-然后编译,运行它.
+
 
 ```
 go build -v -o hub
 ./hub
 ```
-
-当然, 您可以自定义你的Hub配置文件.修改目录下的`tclient.yaml`中的配置即可.
 
 ```yaml
 hub:
@@ -37,8 +35,6 @@ hub:
 
 ### Provider Service
 
-您需要在您的目录下配置`tclient.yaml`文件.可以在主函数的当前目录,也可以在上一级.
-如果您需要改变您的配置文件路径,可以使用`configuration.ChangeConfigFilePath`.
 
 ```yaml
 hub:
@@ -50,10 +46,6 @@ self:
   port: 5555
   survivalTime: 45 // 设置服务的心跳间隔, 这个值得小于Hub上的服务检查时间间隔
 ```
-
-编写您的服务, 这里使用golang的RPC作为示范.
-
-功能很简单,将第一次参数值作为返回值.
 
 ```go
 package main
@@ -97,11 +89,8 @@ func main() {
 
 ```
 
-启动它!
-
 ### Customer
 
-服务消费端需要知道Hub的地址.
 
 ```yaml
 hub:
@@ -136,7 +125,6 @@ func main() {
 
 ```
 
-启动它! 您会在终端中看到
 
 ```shell
 localhost : 4321
