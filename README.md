@@ -6,7 +6,7 @@
 [![codecov](https://codecov.io/gh/sdttttt/go-tds/branch/master/graph/badge.svg)](https://codecov.io/gh/sdttttt/go-tds) [![Join the chat at https://gitter.im/go-tds/community](https://badges.gitter.im/go-tds/community.svg)](https://gitter.im/go-tds/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 一个微服务验证框架，使用go编写. 
-实现最简单的服务注册，调度，调用等功能。
+实现最小单位的服务注册，调度，调用等功能。
 
 # Example
 
